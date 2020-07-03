@@ -4,7 +4,7 @@
   become: false
   tasks:
 
-    - name: Mirror Rancher Images
+    - name: Push Rancher Images to docker registry
       include_role:
         name: mirror
-        tasks_from: pull
+        tasks_from: push

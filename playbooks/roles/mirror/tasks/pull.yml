@@ -1,0 +1,40 @@
+---
+
+- name: Create mirror base directory for images
+  file:
+    path: '{{ mirror_base }}/images'
+    state: directory
+
+- name: Pull image list for release {{ rancher_version }}
+  get_url:
+    url: 'https://github.com/rancher/rancher/releases/download/v{{ rancher_version }}/rancher-images.txt'
+    dest: '{{ mirror_base }}/rancher-images.txt'
+#    checksum: 
+
+#- name: Show images
+#  debug:
+#    msg: "{{ item }}"
+#  loop: "{{ lookup('file', '/tmp/rancher-images.txt').splitlines() }}"
+
+- name: Install skopeo
+  become: true
+  package:
+    name: skopeo
+    state: present
+
+- name: Mirror Additional Images
+  become: true
+  shell:
+    cmd: |
+
+        if ! test -e "{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
+        then
+          skopeo copy \
+            "docker://docker.io/{{item}}" "docker-archive://{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
+
+        fi
+
+    executable: /bin/bash
+  loop: "{{ lookup('file', '{{ mirror_base }}/rancher-images.txt').splitlines() }}"
+  tags:
+    - pull

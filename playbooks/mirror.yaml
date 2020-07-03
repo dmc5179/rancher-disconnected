@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: true
+  become: true
+  tasks:
+
+    - name: Mirror Rancher Images
+      include_role:
+        name: mirror
+        tasks_from: pull

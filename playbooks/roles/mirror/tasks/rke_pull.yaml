@@ -1,0 +1,10 @@
+---
+
+- name: Create directory for binaries
+  file:
+    path: '{{ mirror_base }}/bin'
+
+- name: Pull RKE binary
+  get_url:
+    url: 'https://github.com/rancher/rke/releases/download/v{{ rke_version }}/rke_linux-{{ arch }}'
+    dest: '{{ mirror_base }}/bin'

@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: true
+  become: false
+  tasks:
+
+    - name: Pull RKE Binaries
+      include_role:
+        name: mirror
+        tasks_from: pull_rke

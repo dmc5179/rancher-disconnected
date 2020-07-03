@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: true
+  become: false
+  tasks:
+
+    - name: Install RKE Binaries from Mirror Location
+      include_role:
+        name: mirror
+        tasks_from: install_rke

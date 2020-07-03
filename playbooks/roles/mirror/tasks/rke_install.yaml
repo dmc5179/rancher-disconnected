@@ -1,0 +1,10 @@
+---
+
+- name: Install rke binaries from mirror
+  become: true
+  copy:
+    src: '{{ mirror_base }}/bin/rke_linux-{{ arch }}'
+    dest: '/usr/local/bin/rke'
+    owner: root
+    group: root
+    mode: '0755'

@@ -5,3 +5,13 @@ rancher_version: '2.4.5'
 mirror_base: '/tmp/rancher'
 
 mirror_registry: 'localhost:5000'
+
+pull_secret: '{{ ansible_env.HOME }}/.docker/config.json'
+
+cert_manager_version: 'v0.15.2'
+
+additional_images:
+  - 'quay.io/jetstack/cert-manager-controller:{{ cert_manager_version }}'
+  - 'quay.io/jetstack/cert-manager-webhook:{{ cert_manager_version }}'
+  - 'quay.io/jetstack/cert-manager-cainjector:{{ cert_manager_version }}'
+  - 'quay.io/jetstack/cert-manager-acmesolver:{{ cert_manager_version }}'

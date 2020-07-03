@@ -11,30 +11,42 @@
     dest: '{{ mirror_base }}/rancher-images.txt'
 #    checksum: 
 
-#- name: Show images
-#  debug:
-#    msg: "{{ item }}"
-#  loop: "{{ lookup('file', '/tmp/rancher-images.txt').splitlines() }}"
-
 - name: Install skopeo
   become: true
   package:
     name: skopeo
     state: present
 
-- name: Mirror Additional Images
-  become: true
+- name: Pull Core Rancher Images
   shell:
     cmd: |
 
         if ! test -e "{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
         then
-          skopeo copy \
+          skopeo copy --authfile "{{ pull_secret }}" \
             "docker://docker.io/{{item}}" "docker-archive://{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
 
         fi
 
     executable: /bin/bash
-  loop: "{{ lookup('file', '{{ mirror_base }}/rancher-images.txt').splitlines() }}"
+  with_items:
+   - "{{ lookup('file', '{{ mirror_base }}/rancher-images.txt').splitlines() }}"
+  tags:
+    - pull
+
+- name: Pull Additional Rancher Images
+  shell:
+    cmd: |
+
+        if ! test -e "{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
+        then
+          skopeo copy --authfile "{{ pull_secret }}" \
+            "docker://{{item}}" "docker-archive://{{ mirror_base }}/images/{{ ( item | replace(':','_') | replace('/','-') | replace('.','_') ) }}.tar"
+
+        fi
+
+    executable: /bin/bash
+  with_items:
+    - '{{ additional_images }}'
   tags:
     - pull

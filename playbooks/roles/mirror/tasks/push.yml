@@ -7,7 +7,7 @@
 
         if test -e "{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
         then
-          skopeo copy \
+          skopeo copy --authfile "{{ pull_secret }}" \
             "docker-archive://{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar" \
             "docker://{{mirror_registry}}/{{item}}"
         fi

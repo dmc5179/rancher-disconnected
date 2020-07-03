@@ -1,1 +1,5 @@
 ---
+
+mirror_base: '/tmp/rancher'
+
+rancher_config: '{{ mirror_base }}/cluster/cluster.yml'

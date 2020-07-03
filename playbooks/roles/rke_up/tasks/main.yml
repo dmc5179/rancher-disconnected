@@ -1,2 +1,5 @@
 ---
 
+- name: Run RKE up
+  shell:
+    cmd: rke up --config '{{ rancher_config }}'

@@ -4,3 +4,4 @@ rancher_version: '2.4.5'
 
 mirror_base: '/tmp/rancher'
 
+mirror_registry: 'localhost:5000'

@@ -9,7 +9,6 @@
   get_url:
     url: 'https://github.com/rancher/rancher/releases/download/v{{ rancher_version }}/rancher-images.txt'
     dest: '{{ mirror_base }}/rancher-images.txt'
-#    checksum: 
 
 - name: Install skopeo
   become: true
@@ -30,7 +29,7 @@
 
     executable: /bin/bash
   with_items:
-   - "{{ lookup('file', '{{ mirror_base }}/rancher-images.txt').splitlines() }}"
+    - "{{ lookup('file', '{{ mirror_base }}/rancher-images.txt').splitlines() }}"
   tags:
     - pull
 

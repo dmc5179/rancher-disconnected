@@ -7,4 +7,4 @@
     - name: Pull RKE Binaries
       include_role:
         name: mirror
-        tasks_from: pull_rke
+        tasks_from: rke_pull

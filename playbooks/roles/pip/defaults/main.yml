@@ -3,6 +3,7 @@
 
 mirror_base: '/opt/rancher'
 pip_cmd: pip3
+python_version: '3.6'
 
 pip_modules:
   - name: kubernetes

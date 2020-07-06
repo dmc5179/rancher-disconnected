@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: true
+  become: false
+  tasks:
+
+    - name: Mirror pip modules
+      include_role:
+        name: pip
+        tasks_from: pull

@@ -1,0 +1,16 @@
+---
+
+# RHEL 7.8
+ec2_ami_id: 'ami-05560852bd847df46'
+ec2_region: 'us-east-1'
+ec2_instance_type: 'm4.xlarge'
+ec2_region: 'us-east-1'
+ec2_endpoint: ''
+s3_endpoint: ''
+aws_ssl: true
+ssh_key_name: 'rancher'
+subnet: '' 
+security_group_ids: ''
+tag_specs: 'ResourceType=string,Tags=[{Key=Name,Value=rancher}]'
+
+rancher_hosts: {}

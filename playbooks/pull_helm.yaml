@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: true
+  become: false
+  tasks:
+
+    - name: Pull Helm binaries and charts
+      include_role:
+        name: helm
+        tasks_from: mirror

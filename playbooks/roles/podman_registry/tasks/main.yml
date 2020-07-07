@@ -24,8 +24,6 @@
   file:
     state: directory
     dest: '{{item}}'
-#    owner: root
-#    group: root
     mode: 0755
 
 - name: Upgrade pip
@@ -34,7 +32,6 @@
     name: pip
     executable: "{{ pip_executable }}"
     state: present
-#    version: '20.0.2'
 
 - name: Install passlib for htpassword
   become: "{{ run_as_root }}"
@@ -42,7 +39,6 @@
     name: passlib
     executable: "{{ pip_executable }}"
     state: present
-#    version: '1.7.2'
     extra_args: '--user'
 
 - name: Install bcrypt for htpassword
@@ -51,7 +47,6 @@
     name: bcrypt
     executable: "{{ pip_executable }}"
     state: present
-#    version: '3.1.7'
     extra_args: '--user'
 
 - name: Install cryptography for htpassword

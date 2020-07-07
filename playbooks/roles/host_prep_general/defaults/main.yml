@@ -1,0 +1,5 @@
+---
+
+# Include hostname and transport like https
+repo_server: 'https://registry.example.com'
+repo_path: 'repos'

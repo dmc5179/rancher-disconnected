@@ -1,4 +1,13 @@
 ---
+
+- name: Add and configure RPM repositories
+  template:
+    src: 'templates/redhat-disconnected.repo.j2'
+    dest: '/etc/yum.repos.d/redhat-disconnected.repo'
+    owner: root
+    group: root
+    mode: '0644'
+
 - name: Update all packages
   yum:
     name: "*"

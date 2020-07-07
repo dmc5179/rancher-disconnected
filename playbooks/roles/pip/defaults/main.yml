@@ -66,3 +66,33 @@ pip_modules:
     version: 1.23.0
   - name: pylint
     version: 2.5.3
+  - name: passlib
+    version: 1.7.2
+  - name: bcrypt
+    version: 3.1.7
+  - name: astroid
+    version: 2.4.2
+  - name: isort
+    version: 4.3.21
+  - name: lazy-object-proxy
+    version: 1.4.3
+  - name: mccabe
+    version: 0.6.1
+  - name: pathspec
+    version: 0.8.0
+  - name: toml
+    version: 0.10.1
+  - name: typed-ast
+    version: 1.4.1
+  - name: wrapt
+    version: 1.12.1
+  - name: docopt
+    version: 0.6.2
+  - name: prompt-toolkit
+    version: 3.0.5
+  - name: pyflakes
+    version: 2.2.0
+  - name: pygments
+    version: 2.6.1
+  - name: wcwidth
+    version: 0.2.5

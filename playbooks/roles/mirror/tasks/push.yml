@@ -4,7 +4,7 @@
   shell:
     cmd: |
 
-        if ! test -e "{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
+        if test -e "{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
         then
           skopeo copy --authfile "{{ pull_secret }}" \
           "docker-archive://{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar" \
@@ -21,7 +21,7 @@
   shell:
     cmd: |
 
-        if ! test -e "{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
+        if test -e "{{ mirror_base }}/images/docker_io-{{ ( item | replace(':','_') | replace('/','-') ) }}.tar"
         then
           skopeo copy --authfile "{{ pull_secret }}" \
           "docker-archive://{{ mirror_base }}/images/{{ ( item | replace(':','_') | replace('/','-') | replace('.','_') ) }}.tar" \

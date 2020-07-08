@@ -3,9 +3,18 @@ name=rhel-7-server-rpms
 baseurl={{ repo_server }}/{{ repo_path }}/rhel-7-server-rpms
 enabled=1
 gpgcheck=0
+sslverify=0
 
 [rhel-7-server-extras-rpms]
 name=rhel-7-server-extras-rpms
 baseurl={{ repo_server }}/{{ repo_path }}/rhel-7-server-extras-rpms
 enabled=1
 gpgcheck=0
+sslverify=0
+
+[docker-ce-stable]
+name=docker-ce-stable
+baseurl={{ repo_server }}/{{ repo_path }}/docker-ce-stable
+enabled=1
+gpgcheck=0
+sslverify=0

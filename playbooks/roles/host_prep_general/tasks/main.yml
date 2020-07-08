@@ -1,5 +1,9 @@
 ---
 
+- name: Disable all RHUI repos
+  shell:
+    cmd: sed -i 's|enabled=1|enabled=0|g' /etc/yum.repos.d/*rhui*.repo
+
 - name: Add and configure RPM repositories (RHEL 8)
   template:
     src: 'templates/rhel8-disconnected.repo.j2'
@@ -7,7 +11,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 8
+  when: ansible_os_family == "RedHat" and ansible_distribution_version|int == 8
 
 - name: Add and configure RPM repositories (RHEL 7)
   template:
@@ -16,7 +20,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int == 7
+  when: ansible_os_family == "RedHat" and ansible_distribution_version|int == 7
 
 - name: Update all packages
   yum:
@@ -47,12 +51,53 @@
   when: "'kernel' in update_all_packages.results"
 
 - name: Install preferred packages
+  become: true
   yum:
     name:
       - vim
       - screen
+      - docker-ce
     state: present
+
+- name: stop the docker daemon
   become: true
+  systemd:
+    name: docker
+    state: stopped
+
+- name: Ensure docker group exists
+  become: true
+  group:
+    name: docker
+    state: present
+
+- name: Add user to docker group
+  become: true
+  user:
+    name: ec2-user
+    groups: docker
+
+- name: Start and enable the docker daemon
+  become: true
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Install private registry certificate
+  become: true
+  copy:
+    src: '{{ registry_cert }}'
+    dest: '/etc/pki/ca-trust/source/anchors/registry.crt'
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Update CA trust
+  become: true
+  shell:
+    cmd: update-ca-trust extract
 
 - name: Configure firewall
   include_tasks: firewall.yml
+

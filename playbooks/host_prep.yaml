@@ -1,0 +1,22 @@
+---
+- hosts: masters
+  become: true
+  tasks:
+
+    - name: Set hostname
+      hostname:
+        name: '{{ inventory_hostname }}'
+
+  roles:
+    - host_prep_general
+
+- hosts: workers
+  become: true
+  tasks:
+
+    - name: Set hostname
+      hostname:
+        name: '{{ inventory_hostname }}'
+
+  roles:
+    - host_prep_general

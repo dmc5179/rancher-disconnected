@@ -10,3 +10,9 @@
     url: 'https://github.com/rancher/rke/releases/download/v{{ rke_version }}/rke_linux-{{ arch }}'
     dest: '{{ mirror_base }}/bin'
     mode: '0755'
+
+- name: Pull Rancher CLI
+  get_url:
+    url: 'https://github.com/rancher/cli/releases/download/v{{ rancher_version }}/rancher-linux-{{ arch }}-v{{ rancher_version }}.tar.gz'
+    dest: '{{ mirror_base }}/bin'
+    mode: '0755'

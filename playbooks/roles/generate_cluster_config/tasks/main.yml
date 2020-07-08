@@ -1,1 +1,7 @@
 ---
+
+- name: Generate Rancher Cluster config
+  template:
+    src: 'templates/cluster.yml.j2'
+    dest: '{{ mirror_base }}/cluster.yml'
+    mode: '0644'

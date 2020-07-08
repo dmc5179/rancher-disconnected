@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  gather_facts: true
+  become: false
+  tasks:
+
+    - name: Generate Rancher Cluster config
+      include_role:
+        name: generate_cluster_config
